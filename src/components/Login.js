@@ -8,6 +8,7 @@ import logo from './images/200pxLogo.png';
 
 
 function Login() {
+
   const navigate = useNavigate();
   const kakaoClientId = 'b535697fff731c109ba78a0f414a5d04';
 
@@ -24,7 +25,6 @@ function Login() {
         },
       });
       const userData = await response.json();
-      setUserInfo(userData);
 
       // console.log("유저의 프로필 사진", userData.properties.profile_image);
       localStorage.setItem('name', userData.properties.nickname);
