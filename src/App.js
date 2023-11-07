@@ -40,7 +40,7 @@ function App() {
             <Route path="pageage" element={<Page2Age />} />
             <Route path="pagefamily" element={<Page3Family />} />
             <Route path="pagemarry" element={<Page4Marry />} />
-            <Route path="pagechild" element={<Page5Child/>} />
+            <Route path="pagechild" element={<Page5Child />} />
             <Route path="pagehobby" element={<Page5Hobby />} />
             <Route path="pagesports" element={<Page6Sports />} />
             <Route path="pagepriority" element={<PagePriority />} />

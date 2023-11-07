@@ -7,7 +7,6 @@ import { models } from 'powerbi-client';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 
 import PowerBI from './PowerBI';
-import Powerbitest from './Powerbitest';
 
 function PageEnd() {
   // 로컬에 저장된 유저 이름을 변수에 저장

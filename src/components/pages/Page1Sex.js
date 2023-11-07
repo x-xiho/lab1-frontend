@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
-import { useNavigate, Prompt } from 'react-router-dom'
-import ReactRouterPrompt from "react-router-prompt";
+import { useNavigate } from 'react-router-dom'
+
 
 
 // 질문1 성별
