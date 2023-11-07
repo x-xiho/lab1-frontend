@@ -129,21 +129,22 @@ function PageEnd() {
 
   //백엔드에서 지역추천 결과 데이터 받아옴 {1 : 지역, 2: 지역, 3: 지역}
 
-  // useEffect(() => {
-  //   if (userName) {
-  //     axios.get(`http://localhost:4000/users/${userName}/locations`)
-  //       .then(response => {
-  //         setData(response.data);
+  useEffect(() => {
+    if (userName) {
+      axios.get(`http://localhost:4000/users/${userName}/locations`)
+        .then(response => {
+          setData(response.data);
 
-  //         console.log('백엔드에서 받은 지역추천 결과 데이터', data);
-  //         setGet(!get);
-  //       })
+          console.log('백엔드에서 받은 지역추천 결과 데이터', data);
+          setGet(!get);
+        })
 
-  //       .catch(error => {
-  //         console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
-  //       });
-  //   }
-  // }, []);
+        .catch(error => {
+          console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
+        });
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   ////////////////////////////////////////////////////////////////////////////
 
