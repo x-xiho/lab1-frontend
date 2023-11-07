@@ -1,0 +1,48 @@
+@import url('https://webfontworld.github.io/gmarket/GmarketSans.css');
+
+/* 기본 스타일 제거 */
+.li__nav {
+  list-style: none;
+  transition: all 0.4s;
+  z-index: 15;
+}
+
+a {
+  text-decoration: none;
+  color: black;
+}
+
+
+
+/* 네비바 꾸미기 */
+
+.nav-main {
+  font-family: 'GmarketSans';
+  display: flex;
+  /* font-weight: bold; */
+  justify-content: space-between;
+  margin-right: 4em;
+  margin-top: 4px;
+}
+
+.ul__first{
+  margin-left: 1em;
+}
+
+.nav-main .ul__second {
+  display: flex;
+  align-items: center;
+}
+
+.nav-main .ul__second li {
+  margin-left: 2em;
+  
+}
+
+.active{
+  color: #A7B5A8;
+}
+
+.Nav-logo{
+  width: 46px;
+}
