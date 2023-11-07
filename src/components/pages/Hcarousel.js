@@ -41,18 +41,18 @@ function Hcarousel() {
 
 
   // 백엔드로부터 지금까지 저장된 관심목록 받아오기
-  useEffect(() => {
-    axios.get(`http://localhost:4000/favorites/${userName}`)
-      .then(response => {
-        setHeartList(response.data)
-        // 배열 데이터를 받음
-        console.log("백엔드로부터 받은 관심목록 리스트2", heartList)
-      })
+  // useEffect(() => {
+  //   axios.get(`http://localhost:4000/favorites/${userName}`)
+  //     .then(response => {
+  //       setHeartList(response.data)
+  //       // 배열 데이터를 받음
+  //       console.log("백엔드로부터 받은 관심목록 리스트2", heartList)
+  //     })
 
-      .catch(error => {
-        console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
-      });
-  }, [])
+  //     .catch(error => {
+  //       console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
+  //     });
+  // }, [])
 
 
   // 슬라이더 세팅
