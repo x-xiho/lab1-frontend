@@ -15,9 +15,6 @@ function PageEnd() {
   // 백엔드에서 받은 추천 지역 데이터 저장
   const [data, setData] = useState([]);
 
-  const [data1, setData1] = useState([]);
-  const [data2, setData2] = useState([]);
-  const [data3, setData3] = useState([]);
   const [get, setGet] = useState(false);
 
   const navigate = useNavigate();
@@ -149,8 +146,6 @@ function PageEnd() {
 
   ////////////////////////////////////////////////////////////////////////////
 
-  // 다시하기 버튼
-  // 사용자 지우기
 
 
   return (

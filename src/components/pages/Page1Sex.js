@@ -71,16 +71,3 @@ function Page1Sex() {
 }
 
 export default Page1Sex;
-
-
-{/* <ReactRouterPrompt when={selectedOption} >
-{({ isActive, onConfirm, onCancel }) => isActive && (
-  <div className='page-lightbox'>
-    <div className='page-container'>
-      <p>진짜루 떠나나요?</p>
-      <button onClick={onCancel}>안 떠남</button>
-      <button onClick={onConfirm}>떠나요</button>
-    </div>
-  </div>
-)}
-</ReactRouterPrompt> */}

@@ -16,9 +16,6 @@ function Hcarousel() {
 
   const userName = localStorage.getItem('name');
 
-  // 슬라이더 최대 개수
-  const showMaxCnt = 4;
-  const arr = Array.from(new Array(3));
 
   // 관심목록 삭제
   const handle = (name) => {

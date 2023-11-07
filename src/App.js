@@ -5,7 +5,6 @@ import './App.css'
 import Nav from './components/Nav'
 import Main2 from './components/Main2'
 import Myhome from './components/Myhome'
-import Login from './components/Login'
 import Mypage from './components/Mypage'
 
 import Page0Start from './components/pages/Page0Start'
