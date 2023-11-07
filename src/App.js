@@ -3,6 +3,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom'
 import './App.css'
 
 import Nav from './components/Nav'
+import Login from './Login'
 import Main2 from './components/Main2'
 import Myhome from './components/Myhome'
 import Mypage from './components/Mypage'
@@ -23,12 +24,13 @@ import PagePriority from './components/pages/PagePriority'
 
 
 
+
 function App() {
   return (
     <BrowserRouter>
       <Routes>
 
-        <Route path="login" element={<Login />} />
+        <Route path="login" element={<Login/>} />
         <Route element={<Nav />}>
           <Route path="/" element={<Main2 />} />
 
