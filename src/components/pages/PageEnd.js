@@ -7,13 +7,14 @@ import { models } from 'powerbi-client';
 import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 
 import PowerBI from './PowerBI';
+// import Powerbitest from './Powerbitest';
 
 function PageEnd() {
   // 로컬에 저장된 유저 이름을 변수에 저장
   const userName = localStorage.getItem('name');
 
   // 백엔드에서 받은 추천 지역 데이터 저장
-  const [data, setData] = useState([{ location1: 'd', location2: 'c', location3: 'a'}]);
+  const [data, setData] = useState([]);
 
   const [get, setGet] = useState(false);
 
@@ -33,9 +34,8 @@ function PageEnd() {
     const basicFilter = {
       $schema: "http://powerbi.com/product/schema#basic",
       target: {
-        // table: "구글맵샘플_도봉구",
-        table: "도봉구_샘플제작데이터",
-        column: "구분"
+        table: "데이터통합",
+        column: "자치구"
       },
       operator: "In",
       values: [`${name}`],
@@ -48,23 +48,13 @@ function PageEnd() {
 
       const visuals = await page.getVisuals();
       const visual = visuals[1]; // 시각적 객체 요소 선택
-      // const visual = visuals.find(v => v.type === "googleMapsPbiVisual2982D2C8868A4D07BE77AE3D0F9F87C3");
 
-      // // console.log('시각적 객체 요소 선택 ', page)
-      // if (visual) {
-      //   console.log('비주얼 찍음222 ', visual);
+      console.log('비주얼 찍음 ', visual)
 
-      //   await visual.setSlicerState({
-      //     filters: [basicFilter]
-      //   });
-
-
-        console.log('비주얼 찍음 ', visual)
-
-        await visual.setSlicerState({
-          filters: [basicFilter]
-        });
-      }
+      await visual.setSlicerState({
+        filters: [basicFilter]
+      });
+    }
   }
 
 
@@ -72,17 +62,17 @@ function PageEnd() {
   const putHeart = (areas) => {
 
     if (areas === data.location1) {
-      axios.put(`http://localhost:4000/users/${userName}/favorites`, { favorites: areas })
+      axios.put(`http://localhost:4000/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
       console.log("관심목록에 추가할 지역", areas)
       setHeartClicked1(!heartClicked1);
 
     } else if (areas === data.location2) {
-      axios.put(`http://localhost:4000/users/${userName}/favorites`, { favorites: areas })
+      axios.put(`http://localhost:4000/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
       console.log("관심목록에 추가할 지역", areas)
       setHeartClicked2(!heartClicked2);
 
     } else if (areas === data.location3) {
-      axios.put(`http://localhost:4000/users/${userName}/favorites`, { favorites: areas })
+      axios.put(`http://localhost:4000/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
       console.log("관심목록에 추가할 지역", areas)
       setHeartClicked3(!heartClicked3);
     }
@@ -92,7 +82,7 @@ function PageEnd() {
   const deleteHeart = (area) => {
 
     if (area === data.location1) {
-      axios.delete(`http://localhost:4000/users/${userName}/favorites`, { data: { favorites: area } })
+      axios.delete(`http://localhost:4000/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
         .then(response => {
           console.log('관심목록에 삭제할 지역', area)
           setHeartClicked1(!heartClicked1);
@@ -102,7 +92,7 @@ function PageEnd() {
         });
     }
     else if (area === data.location2) {
-      axios.delete(`http://localhost:4000/users/${userName}/favorites`, { data: { favorites: area } })
+      axios.delete(`http://localhost:4000/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
         .then(response => {
           console.log('관심목록에 삭제할 지역', area)
           setHeartClicked2(!heartClicked2);
@@ -112,7 +102,7 @@ function PageEnd() {
         });
     }
     else if (area === data.location3) {
-      axios.delete(`http://localhost:4000/users/${userName}/favorites`, { data: { favorites: area } })
+      axios.delete(`http://localhost:4000/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
         .then(response => {
           console.log('관심목록에 삭제할 지역', area)
           setHeartClicked3(!heartClicked3);
@@ -123,7 +113,25 @@ function PageEnd() {
     }
   }
 
+// 다시하기
+const reset = () => {
+  const confirmed = window.confirm('설문조사를 처음부터 다시 시작하시겠습니까?');
 
+  if (confirmed) {
+    axios.delete(`http://localhost:4000/users/${userName}`, { data: { name: userName } })
+      .then(response => {
+        console.log('다시 시작')
+        navigate('/myhome/pagesex');
+      })
+      .catch(error => {
+        console.error('관심목록을 삭제하는 과정에서 오류가 발생했습니다.', error);
+      });
+    console.log("삭제되었습니다.");
+  } else {
+    // 사용자가 "아니요"를 눌렀을 때의 동작
+    console.log("취소되었습니다.");
+  }
+}
 
   ////////////////////////////////////////////////////////////////
 
@@ -159,7 +167,7 @@ function PageEnd() {
       </div>
 
       <div className='End-recommend'>
-        <div className='End-recommend-text'>추천결과</div>
+        <div className='End-recommend-text'>나에게 딱 맞는 주거지역 순위</div>
 
         <div className='End-result'>
           {get ?
@@ -168,7 +176,7 @@ function PageEnd() {
               <div className="End-recomend-text">
 
                 <button className='End-recommend-btn'
-                  onClick={() => { powerbibtn('CCTV') }}>
+                  onClick={() => { powerbibtn(data.location1) }}>
                   {/* 함수 속에 들어가는 글자는 추후에 바꾸면 됨 */}
 
                   <div className='End-text-btn'>
@@ -183,7 +191,7 @@ function PageEnd() {
                 </button>
 
                 <button className='End-recommend-btn'
-                  onClick={() => { powerbibtn('경찰서') }}>
+                  onClick={() => { powerbibtn(data.location2) }}>
 
                   <div className='End-text-btn'>
                     <div className='End-rank'>2위</div>
@@ -195,7 +203,7 @@ function PageEnd() {
                 </button>
 
                 <button className='End-recommend-btn'
-                  onClick={() => { powerbibtn('따릉이') }}>
+                  onClick={() => { powerbibtn(data.location3) }}>
                   <div className='End-text-btn'>
                     <div className='End-rank'>3위</div>
                     <div className='End-first'>{data.location3}</div>
@@ -208,7 +216,7 @@ function PageEnd() {
               </div>
               <div>
                 {/* 1. 백엔드에 유저 정보 delete 요청하기 2. 설문조사 첫 페이지로 이동하기 */}
-                <button onClick={() => { navigate('/myhome/pagesex'); }}> 다시하기 </button>
+                <button onClick={() => { reset() }}> 다시하기 </button>
               </div>
             </div>
 
@@ -222,8 +230,3 @@ function PageEnd() {
   )
 }
 export default PageEnd
-
-
-// {data.map((item, index) => (
-//   <ButtonComponent key={index} value={item} />
-// ))}

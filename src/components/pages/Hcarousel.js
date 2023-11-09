@@ -35,8 +35,6 @@ function Hcarousel() {
       // 사용자가 "아니요"를 눌렀을 때의 동작
       console.log("취소되었습니다.");
     }
-
-
   };
 
 
@@ -44,9 +42,11 @@ function Hcarousel() {
   useEffect(() => {
     axios.get(`http://localhost:4000/favorites/${userName}`)
       .then(response => {
-        setHeartList(response.data)
+        const responseArr = response.data.split(',');
+        const trimmedArr = responseArr.map(item => item.trim());
+        setHeartList(trimmedArr);
         // 배열 데이터를 받음
-        console.log("백엔드로부터 받은 관심목록 리스트2", heartList)
+        console.log("백엔드로부터 받은 관심목록 리스트2", trimmedArr)
       })
 
       .catch(error => {

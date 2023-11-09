@@ -1,7 +1,6 @@
 import React from 'react';
 import '../PagesCss/PageCss.css'
 
-
 function Card(props) {
 
   return (

@@ -35,7 +35,7 @@ function Page2Age() {
         <label className='radioStyle'>
           <input type="radio"
             name="age"
-            value="10대"
+            value="10대이하"
             checked={selectedOption === "10대이하"}
             onChange={handleRadioChange} />
             <span>10대 이하</span>
@@ -59,8 +59,6 @@ function Page2Age() {
             <span>30대</span>
         </label>
 
-
-
         <label className='radioStyle'>
           <input type="radio"
             name="age"
@@ -83,7 +81,7 @@ function Page2Age() {
         <label className='radioStyle'>
           <input type="radio"
             name="age"
-            value="60대 이상"
+            value="60대이상"
             checked={selectedOption === "60대이상"}
             onChange={handleRadioChange} />
             <span>60대 이상</span>
