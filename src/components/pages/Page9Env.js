@@ -28,28 +28,44 @@ function Page9Env() {
   // 클릭하는대로 순서 저장하기
   const handleButtonClick = (button) => {
     const existingClickIndex = buttonClicks.findIndex(click => Object.keys(click)[0] === button);
+  
     if (existingClickIndex !== -1) {
-      // 이미 눌린 버튼일 경우, 삭제
-      const newButtonClicks = [...buttonClicks];
-      newButtonClicks.splice(existingClickIndex, 1);
+      // 이미 눌린 버튼일 경우, 삭제하고 순위 조정
+      const removedButton = buttonClicks[existingClickIndex];
+      const newButtonClicks = buttonClicks.filter((_, index) => index !== existingClickIndex);
+  
       newButtonClicks.forEach((click, index) => {
         const key = Object.keys(click)[0];
         const value = index + 1;
-        // 로컬 스토리지에 각 버튼의 순위만 저장
-        localStorage.setItem(key, value.toString());
+        const rank = 5 - index; 
+        localStorage.setItem(key, rank.toString());
         click[key] = value;
       });
+  
       setButtonClicks(newButtonClicks);
       setButtonStatus(prevStatus => ({ ...prevStatus, [button]: true }));
+  
+      const key = Object.keys(removedButton)[0];
+      localStorage.removeItem(key);
     } else {
-      // 새로운 버튼일 경우, 추가
+      // 새로운 버튼일 경우, 추가하고 순위 조정
       const newOrder = [...buttonClicks, { [button]: buttonClicks.length + 1 }];
+  
+      newOrder.forEach((click, index) => {
+        const key = Object.keys(click)[0];
+        const value = index + 1;
+        const rank = 5 - index; 
+        localStorage.setItem(key, rank.toString());
+        click[key] = value;
+      });
+  
       setButtonClicks(newOrder);
       setButtonStatus(prevStatus => ({ ...prevStatus, [button]: false }));
-      // 로컬 스토리지에 각 버튼의 순위만 저장
-      localStorage.setItem(button, (buttonClicks.length + 1).toString());
     }
   };
+  
+  
+  
 
   // 다시하기 버튼
   const resetData = () => {
@@ -61,6 +77,12 @@ function Page9Env() {
       "풍수해": true,
       "주택침수": true
     });
+
+    localStorage.removeItem("공원");
+    localStorage.removeItem("미세먼지");
+    localStorage.removeItem("소음");
+    localStorage.removeItem("풍수해");
+    localStorage.removeItem("주택침수");
   };
 
 
@@ -70,9 +92,9 @@ function Page9Env() {
 
     <div className='page1-container'>
       <div className='page1-text'>
-        <div className='page1-num'>Q.number</div>
+        <div className='page1-num'>Q.09</div>
         <div className='page1-qurry'>내가 중요하게 생각하는 요소를 차례대로 눌러주세요.</div>
-        <div>( 중요하게 생각하는 요소가 없다면 선택하지 않아도 됨 )</div>
+        <div>( 중요하게 생각하는 요소가 없다면 선택하지 않아도 됩니다. )</div>
       </div>
 
       <div >
