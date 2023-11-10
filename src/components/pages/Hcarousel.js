@@ -1,4 +1,4 @@
-import React, { useRef, useState, useEffect } from 'react'
+import React, { useRef, useState } from 'react'
 import Slider from "react-slick";
 import '../PagesCss/PageCss.css'
 import axios from 'axios';
@@ -13,7 +13,7 @@ function Hcarousel() {
   // 슬라이더 버튼 연동
   const slider = useRef(null)
   // 관심목록 데이터 저장
-  const [heartList, setHeartList] = useState([]);
+  const [heartList, setHeartList] = useState([{location1:"강남구", location2:"서초구", location3:"송파구"}]);
 
   const userName = localStorage.getItem('name');
 
@@ -40,20 +40,20 @@ function Hcarousel() {
 
 
   // 백엔드로부터 지금까지 저장된 관심목록 받아오기
-  useEffect(() => {
-    axios.get(`http://localhost:4000/favorites/${userName}`)
-      .then(response => {
-        const heartList = response.data.heartList;
-        setHeartList(heartList);
-        console.log('백엔드로부터 받아온 관심목록 리스트', heartList);
+  // useEffect(() => {
+  //   axios.get(`http://localhost:4000/favorites/${userName}`)
+  //     .then(response => {
+  //       const heartList = response.data.heartList;
+  //       setHeartList(heartList);
+  //       console.log('백엔드로부터 받아온 관심목록 리스트', heartList);
         
-      })
+  //     })
 
-      .catch(error => {
-        console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
-      });
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
+  //     .catch(error => {
+  //       console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
+  //     });
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, [])
 
 
   // 슬라이더 세팅
