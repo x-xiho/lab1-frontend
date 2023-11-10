@@ -14,7 +14,7 @@ function Hcarousel() {
   const slider = useRef(null)
   // 관심목록 데이터 저장
   // const [heartList, setHeartList] = useState([{location1:"강남구", location2:"서초구", location3:"송파구"}]);
-  heartList = ["강남구", "서초구", "송파구"];
+  const heartList = ["강남구", "서초구", "송파구"];
 
   const userName = localStorage.getItem('name');
 
