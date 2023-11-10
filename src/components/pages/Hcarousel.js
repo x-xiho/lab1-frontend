@@ -1,8 +1,8 @@
-import React, { useRef, useState } from 'react'
+import React, { useRef } from 'react'
 import Slider from "react-slick";
 import '../PagesCss/PageCss.css'
 import axios from 'axios';
-
+// 스테이트랑 이펙트 추가할것
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
 
