@@ -10,7 +10,7 @@ import logo from './images/200pxLogo.png';
 function Login() {
 
   const navigate = useNavigate();
-  const kakaoClientId = 'a8bb0bb2318bb4367598455bc9eb95a2';
+  const kakaoClientId = 'b535697fff731c109ba78a0f414a5d04';
 
   // 로그인 성공 시 호출되는 콜백 함수
   const kakaoOnSuccess = async (data) => {
