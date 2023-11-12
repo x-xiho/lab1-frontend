@@ -5,7 +5,7 @@ import '../PagesCss/PageCss.css'
 
 // 공통 마지막 질문 성향 질문
 function Page11Tendency() {
-  const userName = localStorage.getItem('name');
+  // const userName = localStorage.getItem('name');
   const [selectedOption, setSelectedOption] = useState(null);
   const navigate = useNavigate();
 
