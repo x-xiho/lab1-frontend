@@ -57,7 +57,7 @@ function Page11Tendency() {
 
 
       // 백엔드에 유저의 답변 전송
-      axios.post('http://localhost:4000/users', userInfo)
+      axios.post('https://app-hyo-20231118.azurewebsites.net/users', userInfo)
         .then(response => {
           console.log('데이터 전송 성공:', response);
         })
@@ -67,7 +67,7 @@ function Page11Tendency() {
 
 
       // 백엔드에 우선순위 데이터 전송
-      axios.post('http://localhost:4000/rank', userPreferenceInfo)
+      axios.post('https://app-hyo-20231118.azurewebsites.net/rank', userPreferenceInfo)
         .then(response => {
           console.log('우선순위 데이터 전송 성공:', response);
         })
@@ -76,7 +76,7 @@ function Page11Tendency() {
         });
 
       // 대중교통 데이터 전송
-      axios.post('http://localhost:4000/car', userCarInfo)
+      axios.post('https://app-hyo-20231118.azurewebsites.net/car', userCarInfo)
         .then(response => {
           console.log('대중교통 데이터 전송 성공:', response);
         })
@@ -85,7 +85,7 @@ function Page11Tendency() {
         });
 
       // 환경 데이터 전송
-      axios.post('http://localhost:4000/env', userEnvInfo)
+      axios.post('https://app-hyo-20231118.azurewebsites.net/env', userEnvInfo)
         .then(response => {
           console.log('환경 데이터 전송 성공:', response);
         })

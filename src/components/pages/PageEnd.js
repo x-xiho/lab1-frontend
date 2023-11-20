@@ -116,6 +116,7 @@ function PageEnd() {
 
   // 파워비아이 시각화 지도 보기
   const powerbiPage = async (name, pageNumber) => {
+    console.log("파워비아이 시각화 지도 보기", name, pageNumber)
 
     const basicFilter = {
       $schema: "http://powerbi.com/product/schema#basic",
@@ -131,7 +132,6 @@ function PageEnd() {
     try {
       if (window.report) {
         const pages = await window.report.getPages();
-        // const page = pages[pageNumber - 1]; // 페이지 넘버
         const page = pages[pageNumber]
 
         if (page) {
@@ -177,21 +177,24 @@ function PageEnd() {
     }
   };
 
+  // https://app-hyo-20231118.azurewebsites.net/
+  // 엔드포인트
+
   // 관심목록에 지역 저장
   const putHeart = (areas) => {
 
     if (areas === data.location1) {
-      axios.put(`http://localhost:4000/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
+      axios.put(`https://app-hyo-20231118.azurewebsites.net/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
       console.log("관심목록에 추가할 지역", areas)
       setHeartClicked1(!heartClicked1);
 
     } else if (areas === data.location2) {
-      axios.put(`http://localhost:4000/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
+      axios.put(`https://app-hyo-20231118.azurewebsites.net/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
       console.log("관심목록에 추가할 지역", areas)
       setHeartClicked2(!heartClicked2);
 
     } else if (areas === data.location3) {
-      axios.put(`http://localhost:4000/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
+      axios.put(`https://app-hyo-20231118.azurewebsites.net/users/${userName}/favorites/${areas}`, { name: userName, favorites: areas })
       console.log("관심목록에 추가할 지역", areas)
       setHeartClicked3(!heartClicked3);
     }
@@ -201,7 +204,7 @@ function PageEnd() {
   const deleteHeart = (area) => {
 
     if (area === data.location1) {
-      axios.delete(`http://localhost:4000/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
+      axios.delete(`https://app-hyo-20231118.azurewebsites.net/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
         .then(response => {
           console.log('관심목록에 삭제할 지역', area)
           setHeartClicked1(!heartClicked1);
@@ -211,7 +214,7 @@ function PageEnd() {
         });
     }
     else if (area === data.location2) {
-      axios.delete(`http://localhost:4000/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
+      axios.delete(`https://app-hyo-20231118.azurewebsites.net/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
         .then(response => {
           console.log('관심목록에 삭제할 지역', area)
           setHeartClicked2(!heartClicked2);
@@ -221,7 +224,7 @@ function PageEnd() {
         });
     }
     else if (area === data.location3) {
-      axios.delete(`http://localhost:4000/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
+      axios.delete(`https://app-hyo-20231118.azurewebsites.net/users/${userName}/favorites/${area}`, { data: { name: userName, favorites: area } })
         .then(response => {
           console.log('관심목록에 삭제할 지역', area)
           setHeartClicked3(!heartClicked3);
@@ -238,7 +241,7 @@ function PageEnd() {
 
     // 사용자가 "예"를 눌렀을 때의 동작
     if (confirmed) {
-      axios.delete(`http://localhost:4000/users/${userName}`, { data: { name: userName } })
+      axios.delete(`https://app-hyo-20231118.azurewebsites.net/users/${userName}`, { data: { name: userName } })
         .then(response => {
           console.log('다시 시작')
           navigate('/myhome/pagesex');
@@ -259,56 +262,57 @@ function PageEnd() {
 
   //백엔드에서 지역추천 결과 데이터 받아옴 {1 : 지역, 2: 지역, 3: 지역}
 
-  useEffect(() => {
-    if (userName) {
-      axios.get(`http://localhost:4000/users/${userName}/locations`)
-        .then(response => {
-          console.log(response.data)
-          setData(response.data);
-          console.log('백엔드에서 받은 지역추천 결과 데이터', data);
+  // useEffect(() => {
+  //   if (userName) {
+  //     axios.get(`http://localhost:4000/users/${userName}/locations`)
+  //       .then(response => {
+  //         console.log(response.data)
+  //         setData(response.data);
 
-          // powerbibtn(data.location1);
-          setGet(!get);
-        })
+  //         console.log('백엔드에서 받은 지역추천 결과 데이터', data);
 
-        .catch(error => {
-          console.error('지역추천 결과를 불러오는 중 오류가 났습니다.', error);
-        });
+  //         powerbiPage(data.location1,0);
+  //         setGet(!get);
+  //       })
 
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, []);
+  //       .catch(error => {
+  //         console.error('지역추천 결과를 불러오는 중 오류가 났습니다.', error);
+  //       });
+
+  //   }
+  //   // eslint-disable-next-line react-hooks/exhaustive-deps
+  // }, []);
 
 
   // 지역추천결과 받기
 
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       if (userName) {
-  //         const response = await axios.get(`http://localhost:4000/users/${userName}/locations`);
-  //         setData(response.data);
-  //         powerbibtn(response.data.location1);
-  //         console.log('백엔드에서 받은 지역추천 결과 데이터', response.data);
-  //         setGet(!get);
-  //       }
-  //     } catch (error) {
-  //       console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
-  //     }
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        if (userName) {
+          const response = await axios.get(`https://app-hyo-20231118.azurewebsites.net/users/${userName}/locations`);
+          setData(response.data);
+          powerbiPage(response.data.location1, 0);
+          console.log('백엔드에서 받은 지역추천 결과 데이터', response.data);
+          setGet(!get);
+        }
+      } catch (error) {
+        console.error('데이터를 불러오는 중 오류가 발생했습니다.', error);
+      }
 
-  //   };
+    };
 
-  //   fetchData();
-  //   // eslint-disable-next-line react-hooks/exhaustive-deps
-  // }, [userName]);
+    fetchData();
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
 
 
-  // useEffect(() => {
-  //   if (data.location1 && data.location2 && data.location3) {
-  //   }
-  //   console.log("테스트 실행1")
-  // }, [data.location1, data.location2, data.location3]);
+  useEffect(() => {
+    if (data.location1 && data.location2 && data.location3) {
+    }
+    console.log("테스트 실행1")
+  }, [data.location1, data.location2, data.location3]);
 
 
 
@@ -320,6 +324,7 @@ function PageEnd() {
   return (
     <div className='End-container'>
 
+      {console.log("지역추천 지역 콘솔찍기", data.location1, data.location2, data.location3)}
 
       <div className='End-powerbi-wrap'>
         <PowerBI location={data.location1} />
@@ -327,7 +332,7 @@ function PageEnd() {
         <div className='End-exaple'>
           <div>1. 원하는 자치구 클릭</div>
           <div>2. 오른편의 타일을 클릭하여 해당 지역<BsMap></BsMap>의 다양한 정보 탐색하기</div>
-          <div>3. 개별 지역의 자세한 정보는 <BsClipboardData size={15}/> 대시보드 보기 클릭</div>
+          <div>3. 개별 지역의 자세한 정보는 <BsClipboardData size={15} /> 대시보드 보기 클릭</div>
         </div>
       </div>
 
