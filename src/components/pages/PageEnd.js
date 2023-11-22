@@ -24,12 +24,12 @@ function PageEnd() {
 
 
   // 파워비아이 대시보드용 변수
-  // const seoulData = {
-  //   "강남구": 1,"강동구": 2,"강북구": 3,"강서구": 4,"관악구": 5,"광진구": 6,"구로구": 7,"금천구": 8,
-  //   "노원구": 9,"도봉구": 10,"동대문구": 11,"동작구": 12,"마포구": 13,"서대문구": 14,"서초구": 15,
-  //   "성동구": 16,"성북구": 17,"송파구": 18,"양천구": 19,"영등포구": 20,"용산구": 21,"은평구": 22,
-  //   "종로구": 23,"중구": 24,"중랑구": 25
-  // };
+  const seoulNumData = {
+    "강남구": 1,"강동구": 2,"강북구": 3,"강서구": 4,"관악구": 5,"광진구": 6,"구로구": 7,"금천구": 8,
+    "노원구": 9,"도봉구": 10,"동대문구": 11,"동작구": 12,"마포구": 13,"서대문구": 14,"서초구": 15,
+    "성동구": 16,"성북구": 17,"송파구": 18,"양천구": 19,"영등포구": 20,"용산구": 21,"은평구": 22,
+    "종로구": 23,"중구": 24,"중랑구": 25
+  };
   
   const seoulData = {
     "강남구": "상업 및 엔터테인먼트 중심지",
@@ -364,7 +364,7 @@ function PageEnd() {
                   </div>
 
                   <div className='End-dashboard'
-                    onClick={() => { powerbidash(data.location1, 1); console.log("대시보드 보기 1") }}>
+                    onClick={() => { powerbidash(data.location1, seoulNumData[data.location1]); console.log("대시보드 보기 1") }}>
                     <div className='End-dashboard-text'>대시보드</div>
                     <BsClipboardData color='black' size={"25"} />
                   </div>
@@ -392,7 +392,7 @@ function PageEnd() {
                   </div>
 
                   <div className='End-dashboard'
-                    onClick={() => { powerbidash(data.location2, 2); console.log("대시보드 보기 2") }}>
+                    onClick={() => { powerbidash(data.location2, seoulNumData[data.location2]); console.log("대시보드 보기 2") }}>
                     <div className='End-dashboard-text'>대시보드</div>
                     <BsClipboardData color='black' size={"25"} />
                   </div>
@@ -418,7 +418,7 @@ function PageEnd() {
                   </div>
 
                   <div className='End-dashboard'
-                    onClick={() => { powerbidash(data.location3, 3); console.log("대시보드 보기 3") }}>
+                    onClick={() => { powerbidash(data.location3, seoulNumData[data.location3]); console.log("대시보드 보기 3") }}>
                     <div className='End-dashboard-text'>대시보드</div>
                     <BsClipboardData color='black' size={"25"} />
                   </div>
