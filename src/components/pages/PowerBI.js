@@ -1,10 +1,11 @@
 import React from 'react';
 import { PowerBIEmbed } from 'powerbi-client-react';
 import { models } from 'powerbi-client';
+import axios from 'axios';
 
 // 도봉구 샘플
 function PowerBI() {
-  
+
   const requestBody = {
     username: "kibwa23_01@kibwaaisw.onmicrosoft.com",
     roles: [
