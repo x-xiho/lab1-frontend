@@ -8,8 +8,8 @@ import { AiOutlineHeart, AiFillHeart } from "react-icons/ai"
 import { MdOutlineReplay } from "react-icons/md"
 import { BsClipboardData, BsMap } from "react-icons/bs"
 
-// import PowerBI from './PowerBI';
-import Powerbitest from './Powerbitest';
+import PowerBI from './PowerBI';
+// import Powerbitest from './Powerbitest';
 
 function PageEnd() {
   // 로컬에 저장된 유저 이름을 변수에 저장
@@ -328,8 +328,8 @@ function PageEnd() {
       {console.log("지역추천 지역 콘솔찍기", data.location1, data.location2, data.location3)}
 
       <div className='End-powerbi-wrap'>
-        {/* <PowerBI location={data.location1} /> */}
-        <Powerbitest />
+        <PowerBI location={data.location1} />
+        {/* <Powerbitest /> */}
         <div className='End-exaple'>
           <div>1. 원하는 자치구 클릭</div>
           <div>2. 오른편의 타일을 클릭하여 해당 지역<BsMap></BsMap>의 다양한 정보 탐색하기</div>
