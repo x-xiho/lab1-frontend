@@ -1,18 +1,46 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { PowerBIEmbed } from 'powerbi-client-react';
 import { models } from 'powerbi-client';
+import axios from 'axios';
 
 // 도봉구 샘플
-function PowerBI() {
+function Powerbitest() {
+
+  const [accessToken, setAccessToken] = useState('');
+
+  // Azure AD에서 새 토큰 가져오는 함수
+  const fetchAccessToken = async () => {
+    const requestBody = {
+      client_id: '4c1198d2-dc4c-4e6e-8778-83b304707b8f',
+      client_secret: 'T7d8Q~VJk4A1Tt2d30D6oxBcrN3WGLuBZwrL.cVG',
+      grant_type: 'client_credentials',
+      scope: 'https://analysis.windows.net/powerbi/api/.default'
+    };
+
+    const azureADTokenUrl = 'https://login.microsoftonline.com/309ce0af-f6ce-405d-82ef-c58f0e4351af/oauth2/v2.0/token';
+
+    try {
+      const response = await axios.post(azureADTokenUrl, requestBody);
+      const newAccessToken = response.data.access_token;
+      setAccessToken(newAccessToken);
+    } catch (error) {
+      console.error('토큰을 받는 동안 에러 발생:', error);
+    }
+  };
+
+  useEffect(() => {
+    fetchAccessToken(); // 컴포넌트가 로드될 때 토큰을 가져오도록 설정
+  }, []);
+
+
   return (
     <div>
       <PowerBIEmbed
         embedConfig={{
           type: 'report', // 보고서 타입
-          id: '735ea9be-37d2-4003-bdaf-7389632b51fb',
-          // URL 수정 요함
-          embedUrl:"https://app.powerbi.com/reportEmbed?reportId=735ea9be-37d2-4003-bdaf-7389632b51fb&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUVBU1QtQVNJQS1BLVBSSU1BUlktcmVkaXJlY3QuYW5hbHlzaXMud2luZG93cy5uZXQiLCJlbWJlZEZlYXR1cmVzIjp7InVzYWdlTWV0cmljc1ZOZXh0Ijp0cnVlfX0%3d",
-          accessToken:"eyJ0eXAiOiJKV1QiLCJhbGciOiJSUzI1NiIsIng1dCI6IjlHbW55RlBraGMzaE91UjIybXZTdmduTG83WSIsImtpZCI6IjlHbW55RlBraGMzaE91UjIybXZTdmduTG83WSJ9.eyJhdWQiOiJodHRwczovL2FuYWx5c2lzLndpbmRvd3MubmV0L3Bvd2VyYmkvYXBpIiwiaXNzIjoiaHR0cHM6Ly9zdHMud2luZG93cy5uZXQvZmQwOWIyYmMtOTIyMC00YzZiLTgzNzItMjIwYjdiZDUxODE5LyIsImlhdCI6MTY5OTgwNjY4MCwibmJmIjoxNjk5ODA2NjgwLCJleHAiOjE2OTk4MTE5NDEsImFjY3QiOjAsImFjciI6IjEiLCJhZ2VHcm91cCI6IjQiLCJhaW8iOiJBVFFBeS84VkFBQUFEOVJ6WHo5OGlDSzhIUExNdzBpWWc2QVMzTmhKY3VJZmVmVFJScjN0d1llVWV5Ykw3TWZoMnBaeVZlYXNTMEVaIiwiYW1yIjpbInB3ZCJdLCJhcHBpZCI6Ijg3MWMwMTBmLTVlNjEtNGZiMS04M2FjLTk4NjEwYTdlOTExMCIsImFwcGlkYWNyIjoiMCIsImZhbWlseV9uYW1lIjoiS2ltIiwiZ2l2ZW5fbmFtZSI6IkppaG8iLCJpcGFkZHIiOiIyMjEuMTU0LjI0LjgxIiwibmFtZSI6IktpbUppaG8iLCJvaWQiOiIxYzc0NjdhNC0xYjMyLTRiMjUtYTZiMS0wNjUxNTg4ZTUwM2EiLCJwdWlkIjoiMTAwMzIwMDA0OTAzNkM2RiIsInJoIjoiMC5BWEVBdkxJSl9TQ1NhMHlEY2lJTGU5VVlHUWtBQUFBQUFBQUF3QUFBQUFBQUFBQnhBTVUuIiwic2NwIjoidXNlcl9pbXBlcnNvbmF0aW9uIiwic2lnbmluX3N0YXRlIjpbImttc2kiXSwic3ViIjoicFZ3N2VHcW1hb2NUcVl5X0ZRdGFhZUlnb3dDOHNZSlUyb0RQdDIwVXVWayIsInRpZCI6ImZkMDliMmJjLTkyMjAtNGM2Yi04MzcyLTIyMGI3YmQ1MTgxOSIsInVuaXF1ZV9uYW1lIjoia29uZzg4QGR1a3N1bmcuYWMua3IiLCJ1cG4iOiJrb25nODhAZHVrc3VuZy5hYy5rciIsInV0aSI6IlA4ckZvSW56V2tPeHVTcUQ5LUV0QUEiLCJ2ZXIiOiIxLjAiLCJ3aWRzIjpbImI3OWZiZjRkLTNlZjktNDY4OS04MTQzLTc2YjE5NGU4NTUwOSJdLCJ4bXNfcGwiOiJrby1LUiJ9.c7rXSsrv46Ml1Y9SmmxfJS8NziQT2-oKdFu0Emgf09oLFxDqqrZfZnBkFOC5zyfAvCFXqZt7iGOJR2oX_D5QDpxUhO3QZYNDwVquEipmw_CucsVIRget6Iw-LhjPuyLRYfKG8h_C6fI_mcVC2s50XmDPxl4mt1o8ym2UnHdGSx_68Shplz0GgOrBXiobQk2ycnRYOZFHYcEQkp2e4rHuTw5VLhAxfCLrrqLKDwtRNGL74MovT09exwy0IdBKx-DAglGRkbMD5FxdU6TncrU1ufEOtTniOGsC2EILJHv1-lGK2du6IbvwtfPWXvZI7PpKWnm97q0U4i0fEVby6uZPAA",
+          id: '88a88bf8-ce06-4688-a9f5-7a1bda12e1a6',
+          embedUrl:"https://app.powerbi.com/reportEmbed?reportId=88a88bf8-ce06-4688-a9f5-7a1bda12e1a6&config=eyJjbHVzdGVyVXJsIjoiaHR0cHM6Ly9XQUJJLUtPUkVBLUNFTlRSQUwtQS1QUklNQVJZLXJlZGlyZWN0LmFuYWx5c2lzLndpbmRvd3MubmV0IiwiZW1iZWRGZWF0dXJlcyI6eyJ1c2FnZU1ldHJpY3NWTmV4dCI6dHJ1ZX19",
+          accessToken:accessToken,
           tokenType: models.TokenType.Aad,
           settings: {
             panes: {
@@ -48,4 +76,4 @@ function PowerBI() {
   )
 }
 
-export default PowerBI
+export default Powerbitest
