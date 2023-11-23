@@ -4,7 +4,26 @@ import { models } from 'powerbi-client';
 
 // 도봉구 샘플
 function PowerBI() {
-
+  
+  const requestBody = {
+    username: "kibwa23_01@kibwaaisw.onmicrosoft.com",
+    roles: [
+      "Viewer"
+    ]
+  };
+  
+  const tokenRequestUrl = 'https://api.powerbi.com/v1.0/myorg/groups/f2b70bfb-8415-4d39-9862-0684567bf136/reports/88a88bf8-ce06-4688-a9f5-7a1bda12e1a6/GenerateToken';
+  
+  axios.post(tokenRequestUrl, requestBody)
+    .then(response => {
+      // 요청 성공 시 처리
+      console.log('토큰을 성공적으로 받았습니다:', response.data);
+      // 받은 토큰을 처리하는 로직 추가
+    })
+    .catch(error => {
+      // 요청 실패 시 처리
+      console.error('토큰을 받는 동안 에러 발생nn:', error);
+    });
 
   return (
     <div>
